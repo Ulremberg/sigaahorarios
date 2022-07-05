@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet"> 
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tradutor horários Sigaa</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
 </head>
 <body>
     <div class="cabecario">
         <h1>Tradutor horários Sigaa</h1>
     </div>
     <div class="conteudo">
-        
+        <label for="fhorario">hórario para traduzir:</label><br><br>
+        <input type="text" id="fhorario" name="fhorario"><br><br>
+        <button onclick="traduzir()">Traduzir</button>
+        <div>
+            <p>Resultado:</p>
+            <div id="saida">
+
+            </div>
+        </div>
     </div>
 </body>
+<script src="main.js"></script>
 </html>
