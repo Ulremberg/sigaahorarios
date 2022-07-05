@@ -84,11 +84,11 @@ function queDia(numDia){
 function queTurno(turno,primeiroHorario,segundoHorario){
     if (turno=='t'){
         hora = "<p>" + queHorarioTarde(primeiroHorario) +"</p><p>"+ queHorarioTarde(segundoHorario) + "</p>";
-        return "Tarde";
+        return  hora + "<p>Tarde</p>";
     }
     if (turno=='m'){
         hora = "<p>" +queHorarioManha(primeiroHorario) +"</p><p>" + queHorarioManha(segundoHorario) + "</p>";
-        return "Manhã";
+        return  hora + "<p>Manhã</p>";
     }
     if (turno=='n'){
         hora = "<p>" + queHorarioNoite(primeiroHorario) +"</p><p>" + queHorarioNoite(segundoHorario) + "</p>";
