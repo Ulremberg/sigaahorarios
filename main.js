@@ -8,6 +8,11 @@ function traduzir() {
 
 function descodificar(entradaValor) {
   entradaValor = entradaValor.toLowerCase();
+  entradaValor = entradaValor.trim();
+
+  if (entradaValor.indexOf(" ") === -1) {
+    entradaValor = entradaValor.replace(/(.{4})/, "$1 ");
+  }
 
   var reDias = /\b\d{1,2}/;
   var reTurno = /[a-z]/;
@@ -20,15 +25,20 @@ function descodificar(entradaValor) {
     return `<p>Código invalido</p>`;
   }
 
-  primeiroDia = dias[0][0];
-  segundoDia = dias[0][1];
+  const [primeiroDia, segundoDia] = entradaValor.split(" ");
 
-  primeiroHorario = horario[0][0];
-  segundoHorario = horario[0][1];
+  const horarioPrimeiroDia = entradaValor.substring(2, 5);
+  const horarioSegundoDia = entradaValor.substring(7, 10);
+
+  const primeiroHorarioPrimeiroDia = horarioPrimeiroDia[0];
+  const segundoHorarioPrimeiroDia = horarioPrimeiroDia[1];
+
+  const primeiroHorarioSegundoDia = horarioSegundoDia[0];
+  const segundoHorarioSegundoDia = horarioSegundoDia[1];
 
   if (
     primeiroDia == undefined ||
-    primeiroHorario == undefined ||
+    primeiroHorarioPrimeiroDia == undefined ||
     turno == null ||
     turno == undefined
   ) {
@@ -36,14 +46,24 @@ function descodificar(entradaValor) {
   }
 
   let saida = "<p>";
-  saida = saida + queDia(primeiroDia);
-  if (segundoDia != null) {
-    saida = saida + "<p>" + queDia(segundoDia) + "</p>";
-  }
-  saida = saida + "</p>";
+  saida = saida + queDia(primeiroDia[0]) + "</p>";
 
   saida =
-    saida + "<p>" + queTurno(turno, primeiroHorario, segundoHorario) + "</p>";
+    saida +
+    "<p>" +
+    queHorario(turno, primeiroHorarioPrimeiroDia, segundoHorarioPrimeiroDia) +
+    "</p>";
+
+  if (segundoDia != null) {
+    saida = saida + "<p>" + queDia(segundoDia[0]) + "</p>";
+  }
+  saida =
+    saida +
+    "<p>" +
+    queHorario(turno, primeiroHorarioSegundoDia, segundoHorarioSegundoDia) +
+    "</p>";
+
+  saida = saida + "<p>" + queTurno(turno) + "</p>";
 
   return `${saida}`;
 }
@@ -74,33 +94,49 @@ function queDia(numDia) {
   }
 }
 
-function queTurno(turno, primeiroHorario, segundoHorario) {
+function queTurno(turno) {
+  if (turno == "t") {
+    return "<p>Tarde</p>";
+  }
+  if (turno == "m") {
+    return "<p>Manhã</p>";
+  }
+  if (turno == "n") {
+    return "<p>Noite</p>";
+  }
+}
+
+function queHorario(
+  turno,
+  primeiroHorarioPrimeiroDia,
+  segundoHorarioPrimeiroDia
+) {
   if (turno == "t") {
     hora =
       "<p>" +
-      queHorarioTarde(primeiroHorario) +
+      queHorarioTarde(primeiroHorarioPrimeiroDia) +
       "</p><p>" +
-      queHorarioTarde(segundoHorario) +
+      queHorarioTarde(segundoHorarioPrimeiroDia) +
       "</p>";
-    return hora + "<p>Tarde</p>";
+    return hora;
   }
   if (turno == "m") {
     hora =
       "<p>" +
-      queHorarioManha(primeiroHorario) +
+      queHorarioManha(primeiroHorarioPrimeiroDia) +
       "</p><p>" +
-      queHorarioManha(segundoHorario) +
+      queHorarioManha(segundoHorarioPrimeiroDia) +
       "</p>";
-    return hora + "<p>Manhã</p>";
+    return hora;
   }
   if (turno == "n") {
     hora =
       "<p>" +
-      queHorarioNoite(primeiroHorario) +
+      queHorarioNoite(primeiroHorarioPrimeiroDia) +
       "</p><p>" +
-      queHorarioNoite(segundoHorario) +
+      queHorarioNoite(segundoHorarioPrimeiroDia) +
       "</p>";
-    return hora + "<p>Noite</p>";
+    return hora;
   }
 }
 
